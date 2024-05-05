@@ -13,6 +13,10 @@ export default `
 	--pagedjs-margin-right: 1in;
 	--pagedjs-margin-bottom: 1in;
 	--pagedjs-margin-left: 1in;
+  --pagedjs-sheet-margin-left: 0mm;
+  --pagedjs-sheet-margin-top: 0mm;
+  --pagedjs-sheet-margin-right: 0mm;
+  --pagedjs-sheet-margin-bottom: 0mm;
 	--pagedjs-padding-top: 0mm;
 	--pagedjs-padding-right: 0mm;
 	--pagedjs-padding-bottom: 0mm;
@@ -53,27 +57,32 @@ export default `
 
 .pagedjs_sheet {
 	box-sizing: border-box;
-	width: var(--pagedjs-width);
+	width: cacl(var(--pagedjs-width) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right));
 	height: var(--pagedjs-height);
 	overflow: hidden;
 	position: relative;
 	display: grid;
-	grid-template-columns: [bleed-left] var(--pagedjs-bleed-left) [sheet-center] calc(var(--pagedjs-width) - var(--pagedjs-bleed-left) - var(--pagedjs-bleed-right)) [bleed-right] var(--pagedjs-bleed-right);
-	grid-template-rows: [bleed-top] var(--pagedjs-bleed-top) [sheet-middle] calc(var(--pagedjs-height) - var(--pagedjs-bleed-top) - var(--pagedjs-bleed-bottom)) [bleed-bottom] var(--pagedjs-bleed-bottom);
+	grid-template-columns: [bleed-left] var(--pagedjs-bleed-left) [sheet-center] calc(var(--pagedjs-width) - var(--pagedjs-bleed-left) - var(--pagedjs-bleed-right) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right)) [bleed-right] var(--pagedjs-bleed-right);
+	grid-template-rows: [bleed-top] var(--pagedjs-bleed-top) [sheet-middle] calc(var(--pagedjs-height) - var(--pagedjs-bleed-top) - var(--pagedjs-bleed-bottom) - var(--pagedjs-sheet-margin-top) - var(--pagedjs-sheet-margin-bottom)) [bleed-bottom] var(--pagedjs-bleed-bottom);
+  padding-left: var(--pagedjs-sheet-margin-left);
+  padding-top: var(--pagedjs-sheet-margin-top);
+  padding-right: var(--pagedjs-sheet-margin-right);
+  padding-bottom: var(--pagedjs-sheet-margin-bottom);
+  margin: 0;
 }
 
 .pagedjs_right_page .pagedjs_sheet {
-	width: var(--pagedjs-width-right);
+	width: cacl(var(--pagedjs-width-right) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right));
 	height: var(--pagedjs-height-right);
-	grid-template-columns: [bleed-left] var(--pagedjs-bleed-right-left) [sheet-center] calc(var(--pagedjs-width) - var(--pagedjs-bleed-right-left) - var(--pagedjs-bleed-right-right)) [bleed-right] var(--pagedjs-bleed-right-right);
-	grid-template-rows: [bleed-top] var(--pagedjs-bleed-right-top) [sheet-middle] calc(var(--pagedjs-height) - var(--pagedjs-bleed-right-top) - var(--pagedjs-bleed-right-bottom)) [bleed-bottom] var(--pagedjs-bleed-right-bottom);
+	grid-template-columns: [bleed-left] var(--pagedjs-bleed-right-left) [sheet-center] calc(var(--pagedjs-width) - var(--pagedjs-bleed-right-left) - var(--pagedjs-bleed-right-right) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right)) [bleed-right] var(--pagedjs-bleed-right-right);
+	grid-template-rows: [bleed-top] var(--pagedjs-bleed-right-top) [sheet-middle] calc(var(--pagedjs-height) - var(--pagedjs-bleed-right-top) - var(--pagedjs-bleed-right-bottom) - var(--pagedjs-sheet-margin-top) - var(--pagedjs-sheet-margin-bottom)) [bleed-bottom] var(--pagedjs-bleed-right-bottom);
 }
 
 .pagedjs_left_page .pagedjs_sheet {
-	width: var(--pagedjs-width-left);
+	width: cacl(var(--pagedjs-width-left) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right));
 	height: var(--pagedjs-height-left);
-	grid-template-columns: [bleed-left] var(--pagedjs-bleed-left-left) [sheet-center] calc(var(--pagedjs-width) - var(--pagedjs-bleed-left-left) - var(--pagedjs-bleed-left-right)) [bleed-right] var(--pagedjs-bleed-left-right);
-	grid-template-rows: [bleed-top] var(--pagedjs-bleed-left-top) [sheet-middle] calc(var(--pagedjs-height) - var(--pagedjs-bleed-left-top) - var(--pagedjs-bleed-left-bottom)) [bleed-bottom] var(--pagedjs-bleed-left-bottom);
+	grid-template-columns: [bleed-left] var(--pagedjs-bleed-left-left) [sheet-center] calc(var(--pagedjs-width) - var(--pagedjs-bleed-left-left) - var(--pagedjs-bleed-left-right) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right)) [bleed-right] var(--pagedjs-bleed-left-right);
+	grid-template-rows: [bleed-top] var(--pagedjs-bleed-left-top) [sheet-middle] calc(var(--pagedjs-height) - var(--pagedjs-bleed-left-top) - var(--pagedjs-bleed-left-bottom) - var(--pagedjs-sheet-margin-top) - var(--pagedjs-sheet-margin-bottom)) [bleed-bottom] var(--pagedjs-bleed-left-bottom);
 }
 
 .pagedjs_bleed {
@@ -257,12 +266,12 @@ export default `
 
 .pagedjs_pagebox {
 	box-sizing: border-box;
-	width: var(--pagedjs-pagebox-width);
-	height: var(--pagedjs-pagebox-height);
+	width: calc(var(--pagedjs-pagebox-width) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right));
+	height: calc(var(--pagedjs-pagebox-height) - var(--pagedjs-sheet-margin-top) - var(--pagedjs-sheet-margin-bottom));
 	position: relative;
 	display: grid;
-	grid-template-columns: [left] var(--pagedjs-margin-left) [center] calc(var(--pagedjs-pagebox-width) - var(--pagedjs-margin-left) - var(--pagedjs-margin-right)) [right] var(--pagedjs-margin-right);
-	grid-template-rows: [header] var(--pagedjs-margin-top) [page] calc(var(--pagedjs-pagebox-height) - var(--pagedjs-margin-top) - var(--pagedjs-margin-bottom)) [footer] var(--pagedjs-margin-bottom);
+	grid-template-columns: [left] var(--pagedjs-margin-left) [center] calc(var(--pagedjs-pagebox-width) - var(--pagedjs-margin-left) - var(--pagedjs-margin-right) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right)) [right] var(--pagedjs-margin-right);
+	grid-template-rows: [header] var(--pagedjs-margin-top) [page] calc(var(--pagedjs-pagebox-height) - var(--pagedjs-margin-top) - var(--pagedjs-margin-bottom) - var(--pagedjs-sheet-margin-top) - var(--pagedjs-sheet-margin-bottom)) [footer] var(--pagedjs-margin-bottom);
 	grid-column: sheet-center;
 	grid-row: sheet-middle;
 }
@@ -272,7 +281,7 @@ export default `
 }
 
 .pagedjs_margin-top {
-	width: calc(var(--pagedjs-pagebox-width) - var(--pagedjs-margin-left) - var(--pagedjs-margin-right));
+	width: calc(var(--pagedjs-pagebox-width) - var(--pagedjs-margin-left) - var(--pagedjs-margin-right) - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right));
 	height: var(--pagedjs-margin-top);
 	grid-column: center;
 	grid-row: header;
@@ -318,7 +327,7 @@ export default `
 }
 
 .pagedjs_margin-bottom {
-	width: calc(var(--pagedjs-pagebox-width) - var(--pagedjs-margin-left) - var(--pagedjs-margin-right));
+	width: calc(var(--pagedjs-pagebox-width) - var(--pagedjs-margin-left) - var(--pagedjs-margin-right)  - var(--pagedjs-sheet-margin-left) - var(--pagedjs-sheet-margin-right));
 	height: var(--pagedjs-margin-bottom);
 	grid-column: center;
 	grid-row: footer;
@@ -442,11 +451,18 @@ export default `
 	counter-reset: unset;
 }
 
-[data-footnote-marker]:not([data-split-from]) {
-	counter-increment: footnote-marker;
+[data-footnote-marker] {
 	text-indent: 0;
 	display: list-item;
 	list-style-position: inside;
+}
+
+[data-footnote-marker][data-split-from] {
+	list-style: none;
+}
+
+[data-footnote-marker]:not([data-split-from]) {
+	counter-increment: footnote-marker;
 }
 
 [data-footnote-marker]::marker {
@@ -689,11 +705,14 @@ export default `
 		break-after: page;
 	}
 	.pagedjs_sheet {
+		padding-left: var(--pagedjs-sheet-margin-left);
+		padding-top: var(--pagedjs-sheet-margin-top);
+		padding-right: var(--pagedjs-sheet-margin-right);
+		padding-bottom: var(--pagedjs-sheet-margin-bottom);
 		margin: 0;
-		padding: 0;
 		max-height: 100%;
 		min-height: 100%;
 		height: 100% !important;
 	}
 }
-`;
+`
